@@ -1,0 +1,17 @@
+[project]
+name = "topic-intelligence-copliot"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "anthropic>=0.104.0",
+    "fastapi>=0.136.1",
+    "rich>=15.0.0",
+    "typer>=0.25.1",
+]
+[project.scripts]
+fde = "topic_agent.cli:app"
+
+[tool.uv]
+package = true

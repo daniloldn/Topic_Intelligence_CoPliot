@@ -1,0 +1,2 @@
+[console_scripts]
+fde = topic_agent.cli:app

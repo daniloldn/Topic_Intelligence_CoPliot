@@ -1,0 +1,4 @@
+anthropic>=0.104.0
+fastapi>=0.136.1
+rich>=15.0.0
+typer>=0.25.1

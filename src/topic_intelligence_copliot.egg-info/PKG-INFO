@@ -1,0 +1,13 @@
+Metadata-Version: 2.4
+Name: topic-intelligence-copliot
+Version: 0.1.0
+Summary: Add your description here
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+Requires-Dist: anthropic>=0.104.0
+Requires-Dist: fastapi>=0.136.1
+Requires-Dist: rich>=15.0.0
+Requires-Dist: typer>=0.25.1
+
+# Topic_Intelligence_CoPliot
+Starting with a CLI tool that builds knowledge graphs on a user defined topic so that it can generate a report of the latest developments in that field to guide the user in what area to prioritize
