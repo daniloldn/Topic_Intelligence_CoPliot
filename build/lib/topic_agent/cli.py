@@ -1,5 +1,6 @@
 import typer
 from rich.console import Console
+from topic_agent.workflow.planning_workflow import run_planning_workflow
 
 
 app = typer.Typer()
@@ -24,6 +25,12 @@ def update(topic:str):
 @app.command()
 def view():
     console.print("Here are all the knoweledge histories available so far")
+
+# a command to plan what research is required from the user prompt
+@app.command()
+def plan(query:str):
+    results = run_planning_workflow(query)
+    console.print(results.model_dump_json(indent=2))
 
 
 

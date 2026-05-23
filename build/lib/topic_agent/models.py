@@ -1,9 +1,9 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 from typing import Literal
 
 
 class QueryUnderstanding(BaseModel):
-    topic: str = Field(description="The main topic the user is asking about.")
+    topic: str
     request: Literal[
         "explain_topic", 
         "latest_developments",
@@ -11,15 +11,9 @@ class QueryUnderstanding(BaseModel):
         "deep_reseach", 
         "unknown"
     ]
-    time_frame: str |None =Field(
-        default=None,
-        description="The relevant time period, e.g. 'last 7 days', 'last 30 days'.",
-    )
+    time_frame: str |None = None
     knowledge_freshness_required: Literal["low", "medium", "high"]
     depth_required: Literal["quick", "standard", "deep"]
-    user_goal: str = Field(
-        description="A short explanation of what the user wants to achieve."
-    )
 
 
 class RouterDecision(BaseModel):
