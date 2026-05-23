@@ -15,5 +15,15 @@ def hello(name:str= typer.Argument("World")):
 def create(topic:str):
     console.print(f"Starting to create a knowledge history for {topic}")
 
+# a command to update an exisitng knoledge graph 
+@app.console()
+def update(topic:str):
+    console.print(f"Updating the {topic} knowledge history")
+
+# a command for view all the knowledge histories that are in the database
+@app.console()
+def view():
+    console.print("Here are all the knoweledge histories available so far")
+
 
 
