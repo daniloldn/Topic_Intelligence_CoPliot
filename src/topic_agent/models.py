@@ -35,4 +35,4 @@ class PlanningResult(BaseModel):
     original_query: str
     query_understanding: QueryUnderstanding
     router_decision: RouterDecision
-    research_plan: ResearchPlan
+    research_plan: ResearchPlan | None = None
