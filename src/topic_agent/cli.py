@@ -1,6 +1,9 @@
 import typer
 from rich.console import Console
 from topic_agent.workflow.planning_workflow import run_planning_workflow
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 app = typer.Typer()

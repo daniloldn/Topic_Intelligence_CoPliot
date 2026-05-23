@@ -31,11 +31,22 @@ class RouterDecision(BaseModel):
     ]
     reason: str
 
+class SourcePriority(BaseModel):
+    source_type: str
+    priority: int = Field(description="Priority from 1 to 5, where 5 is highest.")
+    reason: str
+
+
 class ResearchPlan(BaseModel):
     source_types_needed: list[str]
+    source_priority: list[SourcePriority]
     search_queries: list[str]
+    evidence_requirements: list[str]
     expected_graph_nodes: list[str]
     expected_graph_edges: list[str]
+    ranking_signals: list[str]
+    risks_and_biases: list[str]
+    #removed clarificatoin, might add it back later
 
 class PlanningResult(BaseModel):
     original_query: str

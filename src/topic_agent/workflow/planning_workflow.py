@@ -11,7 +11,7 @@ def run_planning_workflow(query: str) -> PlanningResult:
     #this stp is only needed if the router decision calls for researc
     plan = router_decision.route
     if plan == "build_new_graph" or plan == "update_exisitng_graph":
-        research_plan = create_research_plan(understanding)
+        research_plan = create_research_plan(query,understanding, router_decision)
     else:
         research_plan = None
     return PlanningResult(
