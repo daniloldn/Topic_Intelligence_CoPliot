@@ -3,7 +3,10 @@ import time
 from rich.console import Console
 from topic_agent.workflow.planning_workflow import run_planning_workflow
 from dotenv import load_dotenv
-from topic_agent.helpers import print_plan_summary
+from topic_agent.helpers import print_plan_summary, print_discovery_summary
+from topic_agent.sources.search_provider import MockSearchProvider
+from topic_agent.sources.evaluator import evaluate_content_items
+from topic_agent.sources.discovery import discover_content_items
 
 load_dotenv()
 
@@ -47,6 +50,28 @@ def plan(query: str, full: bool = False):
         console.print(result.model_dump_json(indent=2))
     else:
         print_plan_summary(result, console)
+
+    
+
+@app.command()
+def discover(query: str, full: bool = False):
+    """Discover and evaluate candidate content items for a query."""
+    with console.status("[bold green]Planning and discovering sources...[/bold green]", spinner="dots"):
+        planning_result = run_planning_workflow(query)
+
+        if planning_result.query_understanding.clarification_needed:
+            console.print("[yellow]Clarification needed:[/yellow]")
+            console.print(planning_result.query_understanding.clarification_question)
+            return
+
+        search_provider = MockSearchProvider()
+        candidates = discover_content_items(planning_result, search_provider)
+        evaluated = evaluate_content_items(candidates, planning_result)
+
+    if full:
+        console.print([item.model_dump() for item in evaluated])
+    else:
+        print_discovery_summary(evaluated, console)
   
 
 

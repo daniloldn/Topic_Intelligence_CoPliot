@@ -57,3 +57,46 @@ class PlanningResult(BaseModel):
     query_understanding: QueryUnderstanding
     router_decision: RouterDecision | None = None
     research_plan: ResearchPlan | None = None
+
+from typing import Literal
+from pydantic import BaseModel, Field
+
+
+class TrustedSource(BaseModel):
+    name: str
+    domain: str
+    search_scope: str
+    source_type: str
+    topics: list[str]
+    trust_level: Literal["trusted", "candidate", "unknown", "avoid"] = "trusted"
+
+
+class CandidateContentItem(BaseModel):
+    title: str
+    url: str
+    source_name: str | None = None
+    domain: str | None = None
+    source_type: str | None = None
+    published_at: str | None = None
+    snippet: str | None = None
+    discovery_query: str
+    discovery_method: Literal["trusted_source_search", "broad_web_search"]
+
+
+class EvaluatedContentItem(BaseModel):
+    item: CandidateContentItem
+    relevance_score: int = Field(ge=0, le=100)
+    authority_score: int = Field(ge=0, le=100)
+    recency_score: int = Field(ge=0, le=100)
+    evidence_value_score: int = Field(ge=0, le=100)
+    technical_depth_score: int = Field(ge=0, le=100)
+    bias_risk_score: int = Field(ge=0, le=100)
+    overall_score: int = Field(ge=0, le=100)
+    recommendation: Literal["ingest", "maybe", "skip"]
+    reason: str
+
+
+class DiscoveryResult(BaseModel):
+    query: str
+    candidates: list[CandidateContentItem]
+    evaluated_items: list[EvaluatedContentItem]
