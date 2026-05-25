@@ -20,6 +20,10 @@ class QueryUnderstanding(BaseModel):
     user_goal: str = Field(
         description="A short explanation of what the user wants to achieve."
     )
+    clarification_needed: bool
+    clarification_question: str | None = Field(
+        description= "Only use if the topic feels vague, then ask quesitions to clarifiy what the user wants, asking them to be more specific. "
+    )
 
 
 class RouterDecision(BaseModel):
@@ -51,5 +55,5 @@ class ResearchPlan(BaseModel):
 class PlanningResult(BaseModel):
     original_query: str
     query_understanding: QueryUnderstanding
-    router_decision: RouterDecision
+    router_decision: RouterDecision | None = None
     research_plan: ResearchPlan | None = None

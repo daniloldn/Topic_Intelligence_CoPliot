@@ -4,10 +4,14 @@ src/topic_agent/__init__.py
 src/topic_agent/cli.py
 src/topic_agent/config.py
 src/topic_agent/models.py
+src/topic_agent/agents/__init__.py
 src/topic_agent/agents/knowledge_router.py
 src/topic_agent/agents/query_understanding.py
 src/topic_agent/agents/research_planner.py
+src/topic_agent/llm/__init__.py
+src/topic_agent/llm/openai_client.py
 src/topic_agent/storage/json_store.py
+src/topic_agent/workflow/__init__.py
 src/topic_agent/workflow/planning_workflow.py
 src/topic_intelligence_copliot.egg-info/PKG-INFO
 src/topic_intelligence_copliot.egg-info/SOURCES.txt
