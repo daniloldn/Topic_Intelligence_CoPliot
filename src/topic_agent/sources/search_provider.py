@@ -32,3 +32,4 @@ class MockSearchProvider:
                 discovery_method=discovery_method,
             ),
         ][:max_results]
+    

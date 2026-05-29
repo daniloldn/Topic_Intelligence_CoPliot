@@ -1,6 +1,6 @@
 import os
 from openai import OpenAI
-from topic_agent.models import QueryUnderstanding, ResearchPlan
+from topic_agent.models import QueryUnderstanding, ResearchPlan, DiscoveryResult, PlanningResult
 
 
 class OpenAIQueryUnderstandingClient:
@@ -222,3 +222,102 @@ Rules:
         return response.output_parsed
     
         
+class OpenAISourceFinderClient:
+    def __init__(self, model:str|None=None):
+        self.client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+        self.model = model or os.getenv("RESEARCH_PLAN_MODEL", "gpt-5-mini")
+    SOURCE_FINDER_SYSTEM_PROMPT = """
+You are the Source Discovery Agent for an agentic topic intelligence system.
+
+Your job is to use web search to find, evaluate, and rank exactly 5 specific sources
+that should be considered for ingestion.
+
+You are given:
+- the original user query,
+- the query understanding,
+- the router decision,
+- the research plan.
+
+You do not ingest content.
+You do not write the final answer.
+You do not summarise the topic.
+You only find and evaluate candidate sources.
+
+Process:
+1. Use the research plan to understand what evidence is needed.
+2. Search for specific pages, not homepages.
+3. Prefer trusted and primary sources first.
+4. Evaluate each source as you choose it.
+5. Return exactly 5 evaluated sources, ranked from strongest to weakest.
+
+Source priority:
+1. Primary/trusted sources:
+   - official company/lab announcements
+   - official documentation
+   - release notes
+   - official framework blogs
+   - academic papers/preprints
+   - benchmark/evaluation reports
+2. Independent technical commentary:
+   - respected engineering blogs
+   - expert technical newsletters
+3. Mainstream news:
+   - only if it adds useful business, adoption, market, or policy context.
+4. Avoid:
+   - SEO listicles
+   - content farms
+   - generic explainers
+   - vague homepages
+   - duplicate articles
+   - unsourced hype
+
+Scoring guidance: (it is out of 100)
+- relevance_score: how directly this item helps answer the user's query.
+- authority_score: credibility of the source/domain/author.
+- recency_score: how well the source matches the requested time window.
+- evidence_value_score: whether the source gives primary evidence, data, release notes, documentation, or concrete claims.
+- technical_depth_score: how much useful technical detail it provides.
+- bias_risk_score: higher means more risk of marketing, hype, or one-sided framing.
+- overall_score: weighted judgement of usefulness for ingestion. T
+
+Rules:
+- Return exactly 5 items.
+- Each item must be a specific URL.
+- Do not invent URLs.
+- Do not include duplicate sources.
+- Prefer recent sources when freshness_required is high.
+- Prefer sources that directly match the research plan's source priorities and evidence requirements.
+- If a source is vendor-authored, it may be authoritative but should receive some bias risk.
+- If a source is independent commentary, it may be useful but should not outrank a primary source for factual release claims.
+- Output must match the required schema.
+"""
+    def find_sources(self, planning_result: PlanningResult) -> DiscoveryResult:
+        user_prompt = f"""
+Find exactly 5 specific sources for the following research plan.
+
+Original query:
+{planning_result.original_query}
+
+Query understanding:
+{planning_result.query_understanding.model_dump_json(indent=2)}
+
+Router decision:
+{planning_result.router_decision.model_dump_json(indent=2) if planning_result.router_decision else None}
+
+Research plan:
+{planning_result.research_plan.model_dump_json(indent=2) if planning_result.research_plan else None}
+
+Return exactly 5 CandidateContentItem objects.
+"""
+
+        response = self.client.responses.parse(
+            model=self.model,
+            tools=[{"type": "web_search"}],
+            input=[
+                {"role": "system", "content": self.SOURCE_FINDER_SYSTEM_PROMPT},
+                {"role": "user", "content": user_prompt},
+            ],
+            text_format=DiscoveryResult,
+        )
+
+        return response.output_parsed

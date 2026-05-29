@@ -6,6 +6,7 @@ Requires-Python: >=3.12
 Description-Content-Type: text/markdown
 Requires-Dist: anthropic>=0.104.0
 Requires-Dist: fastapi>=0.136.1
+Requires-Dist: feedparser>=6.0.12
 Requires-Dist: openai>=2.38.0
 Requires-Dist: pydantic>=2.13.4
 Requires-Dist: python-dotenv>=1.2.2

@@ -69,6 +69,7 @@ class TrustedSource(BaseModel):
     source_type: str
     topics: list[str]
     trust_level: Literal["trusted", "candidate", "unknown", "avoid"] = "trusted"
+    feed_url : str | None = None
 
 
 class CandidateContentItem(BaseModel):
@@ -81,6 +82,7 @@ class CandidateContentItem(BaseModel):
     snippet: str | None = None
     discovery_query: str
     discovery_method: Literal["trusted_source_search", "broad_web_search"]
+    
 
 
 class EvaluatedContentItem(BaseModel):
@@ -93,10 +95,28 @@ class EvaluatedContentItem(BaseModel):
     bias_risk_score: int = Field(ge=0, le=100)
     overall_score: int = Field(ge=0, le=100)
     recommendation: Literal["ingest", "maybe", "skip"]
-    reason: str
+    reason: str =  Field(
+        description= "Why you chose the particular source for the question the user wants"
+    )
+    source_role: Literal[
+    "primary_announcement",
+    "implementation_release",
+    "academic_evidence",
+    "benchmark",
+    "independent_analysis",
+    "business_context",
+    "documentation"
+]
+    date_relevance: Literal[
+    "current",
+    "recent",
+    "historical",
+    "unknown",
+]
 
 
 class DiscoveryResult(BaseModel):
     query: str
-    candidates: list[CandidateContentItem]
-    evaluated_items: list[EvaluatedContentItem]
+    items: list[EvaluatedContentItem] = Field(
+        description="Exactly 5 evaluated candidate sources, ranked from best to worst."
+    )

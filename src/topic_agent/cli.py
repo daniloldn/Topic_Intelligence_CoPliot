@@ -7,6 +7,7 @@ from topic_agent.helpers import print_plan_summary, print_discovery_summary
 from topic_agent.sources.search_provider import MockSearchProvider
 from topic_agent.sources.evaluator import evaluate_content_items
 from topic_agent.sources.discovery import discover_content_items
+from topic_agent.agents.source_provider import find_source
 
 load_dotenv()
 
@@ -56,6 +57,7 @@ def plan(query: str, full: bool = False):
 @app.command()
 def discover(query: str, full: bool = False):
     """Discover and evaluate candidate content items for a query."""
+    start = time.perf_counter()
     with console.status("[bold green]Planning and discovering sources...[/bold green]", spinner="dots"):
         planning_result = run_planning_workflow(query)
 
@@ -63,10 +65,17 @@ def discover(query: str, full: bool = False):
             console.print("[yellow]Clarification needed:[/yellow]")
             console.print(planning_result.query_understanding.clarification_question)
             return
+    with console.status("[bold green]Finding 5 sources from the web...[/bold green]", spinner="dots"):
+        source_result = find_source(planning_result)
+        evaluated =  source_result.items
 
-        search_provider = MockSearchProvider()
-        candidates = discover_content_items(planning_result, search_provider)
-        evaluated = evaluate_content_items(candidates, planning_result)
+        #when using a search provider keepign for now, until final flow is decided 
+        #search_provider = MockSearchProvider()
+        #candidates = discover_content_items(planning_result, search_provider)
+        #evaluated = evaluate_content_items(candidates, planning_result)
+    
+    elapsed = time.perf_counter() - start
+    console.print(f"[dim]Completed in {elapsed:.2f}s[/dim]")
 
     if full:
         console.print([item.model_dump() for item in evaluated])
