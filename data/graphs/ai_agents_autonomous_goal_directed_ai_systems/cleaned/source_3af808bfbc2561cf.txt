@@ -1,0 +1,506 @@
+Microsoft Agent Framework Version 1.0 | Microsoft Agent Framework
+Skip to main content
+Shawn Henry
+Principal Group Product Manager
+Today, we’re thrilled to announce that
+Microsoft Agent Framework has reached version 1.0
+for both
+.NET
+and
+Python
+. This is the production-ready release: stable APIs, and a commitment to long-term support. Whether you’re building a single assistant or orchestrating a fleet of specialized agents, Agent Framework 1.0 gives you enterprise-grade multi-agent orchestration, multi-provider model support, and cross-runtime interoperability via A2A and MCP.
+When we
+introduced Microsoft Agent Framework
+last October, we set out to unify the enterprise-ready foundations of Semantic Kernel with the innovative orchestrations of AutoGen into a single, open-source SDK. When we hit
+Release Candidate
+in February, we locked the feature surface and invited the community to put it through its paces. Today, after months of feedback, hardening, and real-world validation with customers and partners, Agent Framework 1.0 is ready for production.
+https://devblogs.microsoft.com/agent-framework/wp-content/uploads/sites/78/2026/04/devui6_720p.mp4
+Create Your First Agent
+Getting started takes just a few lines of code. Here’s how to create a simple agent in both languages.
+Python
+# pip install agent-framework
+# Use `az login` to authenticate with Azure CLI
+import asyncio
+from agent_framework import Agent
+from agent_framework.foundry import FoundryChatClient
+from azure.identity import AzureCliCredential
+agent = Agent(
+client= FoundryChatClient(
+project_endpoint="https://your-project.services.ai.azure.com",
+model="gpt-5.3",
+credential=AzureCliCredential(),
+),
+name="HelloAgent",
+instructions="You are a friendly assistant."
+)
+print(asyncio.run(agent.run("Write a haiku about shipping 1.0.")))
+.NET
+// dotnet add package Microsoft.Agents.AI.OpenAI --prerelease
+using Microsoft.Agents.AI;
+using Microsoft.Agents.AI.Foundry
+using Azure.Identity;
+// Replace the <apikey> with your OpenAI API key.
+var agent = new AIProjectClient(endpoint:"https://your-project.services.ai.azure.com")
+.GetResponsesClient("gpt-5.3")
+.AsAIAgent(
+name: "HaikuBot",
+instructions: "You are an upbeat assistant that writes beautifully."
+);
+Console.WriteLine(await agent.RunAsync("Write a haiku about shipping 1.0."));
+That’s it – a working AI agent in a handful of lines. From here you can add function tools, sessions for multi-turn conversations, streaming responses, and more.
+Multi-Agent Workflows
+Single agents are powerful, but real-world applications often need multiple agents working together. Here’s a sequential workflow where a copywriter drafts a tagline and a reviewer provides feedback:
+Python
+import asyncio
+from agent_framework import Agent, Message
+from agent_framework.foundry import FoundryChatClient
+from agent_framework.orchestrations import SequentialBuilder
+from azure.identity import AzureCliCredential
+async def main() -> None:
+# credentials read from .env
+client = FoundryChatClient(credential=AzureCliCredential())
+writer = Agent(
+client=client,
+instructions="You are a concise copywriter. Provide a single, punchy marketing sentence.",
+name="writer",
+)
+reviewer = Agent(
+client=client,
+instructions="You are a thoughtful reviewer. Give brief feedback on the previous message.",
+name="reviewer",
+)
+workflow = SequentialBuilder(participants=[writer, reviewer]).build()
+outputs: list[list[Message]] = []
+async for event in workflow.run("Write a tagline for Microsoft Agent Framework 1.0.", stream=True):
+if event.type == "output":
+outputs.append(cast(list[Message], event.data))
+if outputs:
+for msg in outputs[-1]:
+print(f"[{msg.author_name or 'user'}]: {msg.text}")
+if __name__ == "__main__":
+asyncio.run(main())
+and check out the .NET version here:
+Getting Started with Workflows
+What’s in version 1.0
+Version 1.0 represents the features we’ve battle-tested, stabilized, and committed to supporting with full backward compatibility going forward.
+Single Agent and Service Connectors –
+The core agent abstraction is stable and production-ready across both .NET and Python. Agent Framework ships with first-party service connectors for Microsoft Foundry, Azure OpenAI, OpenAI, Anthropic Claude, Amazon Bedrock, Google Gemini and Ollama.
+[Learn more… ]
+Middleware Hooks –
+The middleware pipeline lets you intercept, transform, and extend agent behavior at every stage of execution: content safety filters, logging, compliance policies, custom logic – all without modifying agent prompts.
+[Learn more… ]
+Agent Memory and Context Providers –
+Pluggable memory architecture supporting conversational history, persistent key-value state, and vector-based retrieval. Choose your backend: Memory in Foundry Agent Service, Mem0, Redis, Neo4j or use a custom store.
+[Learn more…]
+Agent Workflows –
+The graph-based workflow engine for composing agents and functions into deterministic, repeatable processes is now stable. Build workflows that combine agent reasoning with business logic, branch on conditions, fan out to parallel steps, and converge results. Checkpointing and hydration ensure long-running processes survive interruptions.
+[Learn more… ]
+Multi-Agent Orchestration –
+Stable support for the orchestration patterns that emerged from Microsoft Research and AutoGen: sequential, concurrent, handoff, group chat, and Magentic-One. All patterns support streaming, checkpointing, human-in-the-loop approvals, and pause/resume for long-running workflows.
+[Learn more…]
+Declarative Agents and Workflows (YAML) –
+Define agents’ instructions, tools, memory configuration, and orchestration topology in version-controlled YAML files, then load and run them with a single API call.
+[Learn more… ]
+A2A, and MCP – MCP (Model Context Protocol)
+support lets agents dynamically discover and invoke external tools exposed over MCP-compliant servers.
+A2A (Agent-to-Agent) protocol
+(A2A 1.0 support coming soon) support enables cross-runtime agent collaboration – your agents can coordinate with agents running in other frameworks using structured, protocol-driven messaging.
+[Learn more…]
+Migration Assistants (Semantic Kernel and AutoGen) –
+For teams coming from Semantic Kernel or AutoGen, migration assistants analyze your existing code and generate step-by-step migration plans. The
+Semantic Kernel migration guide
+and
+AutoGen migration guide
+provide detailed walkthroughs.
+What’s new since the October release
+We’re also shipping with preview features that are functional and available for early adoption. These APIs may evolve based on community feedback before reaching ‘stable’.
+DevUI
+– browser-based local debugger for visualizing agent execution, message flows, tool calls, and orchestration decisions in real time.
+[Learn more… ]
+Foundry Hosted Agent Integration
+– run Agent Framework agents as managed services on Microsoft Foundry or as Azure Durable Functions.
+[Learn more… ]
+Foundry Tools, Memory, Observability and Evaluations
+– deep integration with Foundry’s managed tool ecosystem, memory, and OpenTelemetry-powered observability and evaluations dashboards.
+[Learn more… ]
+AG-UI / CopilotKit / ChatKit
+– stream agent output to frontend surfaces with adapters for CopilotKit and ChatKit, including tool execution status and human-in-the-loop flows.
+[Learn more… ]
+Skills
+– reusable domain capability packages (instructions + scripts + resources)) that give agents structured capabilities out of the box.
+[Learn more… ]
+GitHub Copilot SDK and Claude Code SDK
+— use GitHub Copilot SDK or Claude Code as an agent harness directly from your Agent Framework orchestration code. These SDKs handle the autonomous agent loop – planning, tool execution, file edits, and session management – and Agent Framework wraps them, letting you compose a coding-capable agent alongside other agents (Azure OpenAI, Anthropic, custom) in the same multi-agent workflow.
+[Learn more… ]
+Agent Harness
+— customizable Microsoft Agent Framework harness and local runtime giving agents access to shell, file system, and messaging loop for coding agents, automation, and personal assistant patterns.
+[Learn more… ]
+Getting Started
+If you’ve been running on the RC packages, upgrading to 1.0 is a package version bump. If you’re new to Agent Framework, install and go:
+Python
+pip install agent-framework
+.NET
+dotnet add package Microsoft.Agents.AI
+Check out the
+quickstart guide
+for walkthroughs in both languages, or jump straight to the
+samples on GitHub
+.
+Coming from AutoGen or Semantic Kernel? Now is the time to migrate to Microsoft Agent Framework. The
+Semantic Kernel migration guide
+and
+AutoGen migration guide
+provide detailed walkthroughs.
+What’s Next
+Version 1.0 is a beginning, not a destination. We’re continuing to invest in graduating preview features, expanding the connector and skills ecosystem, deepening Foundry integration, and incorporating the latest orchestration research from Microsoft Research. The framework is 100% open source – we build in the open, and your feedback and contributions shape what comes next.
+Thank you to everyone who filed issues, submitted PRs, tested release candidates, and pushed us to make Agent Framework better. This milestone belongs to the community as much as it does to the team.
+Get started today:
+Download the SDK:
+aka.ms/AgentFramework
+Documentation:
+aka.ms/AgentFramework/Docs
+GitHub:
+github.com/microsoft/agent-framework
+Discord:
+aka.ms/foundry/discord
+NuGet (.NET):
+Microsoft.Agents.AI
+PyPI (Python):
+agent-framework
+Category
+Agent Framework
+Announcements
+Topics
+Announcement
+Microsoft Agent Framework
+Share
+Author
+Shawn Henry
+Principal Group Product Manager
+Principal Group Product Manager
+4
+comments
+Join the discussion.
+Leave a comment
+Cancel reply
+Sign in
+Code of Conduct
+Sort by :
+Newest
+Newest
+Popular
+Oldest
+Congratulations. 👌
+Cool, Finally we are ready to fun with other core (Java, .js) developers.
+This sounds like a great development project, congratulations on 1.0!
+I have been a Microsoft developer and partner since earning my MCSD. At that time, it covered software development and infrastructure through the entire life cycle. For AI, I created some MCP servers to expand Visual Studio agentic capacity, but VS Code is clearly more capable.
+I built local infrastructure for AI to protect my code. My AMD 395 AI based servers have replaced expensive Nvidia GPUs.
+Can I integrate your fine work into my local model serving system? Is there a server software version or is this all closed source...
+Read more
+This sounds like a great development project, congratulations on 1.0!
+I have been a Microsoft developer and partner since earning my MCSD. At that time, it covered software development and infrastructure through the entire life cycle. For AI, I created some MCP servers to expand Visual Studio agentic capacity, but VS Code is clearly more capable.
+I built local infrastructure for AI to protect my code. My AMD 395 AI based servers have replaced expensive Nvidia GPUs.
+Can I integrate your fine work into my local model serving system? Is there a server software version or is this all closed source on Azure?
+Read less
+HI Charles, appreciate your message.
+Can I integrate your fine work into my local model serving system?
+In regards to your question, yes, Microsoft Agent Framework was built as an abstraction for AI Agents regardless of the provider allowing complex scenarios like Orchestration, Harnessing, etc.
+We have non-GA samples and packages showcasing how hosting Agent Web Api's can be used within your own infrastructure.
+On top of all that Agent Framework is a MIT license project were you have the flexibility to customize it for your own cases.
+Please have a look on our samples including, multiple providers, local model like Ollama...
+Read more
+HI Charles, appreciate your message.
+Can I integrate your fine work into my local model serving system?
+In regards to your question, yes, Microsoft Agent Framework was built as an abstraction for AI Agents regardless of the provider allowing complex scenarios like Orchestration, Harnessing, etc.
+We have non-GA samples and packages showcasing how hosting Agent Web Api’s can be used within your own infrastructure.
+On top of all that Agent Framework is a MIT license project were you have the flexibility to customize it for your own cases.
+Please have a look on our samples including, multiple providers, local model like Ollama and ONNX, and workflows for more insights.
+Read less
+Read next
+April 8, 2026
+Building a Real-Time Multi-Agent UI with AG-UI and Microsoft Agent Framework Workflows
+Evan Mattson
+April 13, 2026
+Agent Skills in .NET: Three Ways to Author, One Provider to Run Them
+Sergey Menshykh
+Stay informed
+Get notified when new posts are published.
+Email
+*
+Country/Region
+*
+Select...
+United States
+Afghanistan
+Åland Islands
+Albania
+Algeria
+American Samoa
+Andorra
+Angola
+Anguilla
+Antarctica
+Antigua and Barbuda
+Argentina
+Armenia
+Aruba
+Australia
+Austria
+Azerbaijan
+Bahamas
+Bahrain
+Bangladesh
+Barbados
+Belarus
+Belgium
+Belize
+Benin
+Bermuda
+Bhutan
+Bolivia
+Bonaire
+Bosnia and Herzegovina
+Botswana
+Bouvet Island
+Brazil
+British Indian Ocean Territory
+British Virgin Islands
+Brunei
+Bulgaria
+Burkina Faso
+Burundi
+Cabo Verde
+Cambodia
+Cameroon
+Canada
+Cayman Islands
+Central African Republic
+Chad
+Chile
+China
+Christmas Island
+Cocos (Keeling) Islands
+Colombia
+Comoros
+Congo
+Congo (DRC)
+Cook Islands
+Costa Rica
+Côte dIvoire
+Croatia
+Curaçao
+Cyprus
+Czechia
+Denmark
+Djibouti
+Dominica
+Dominican Republic
+Ecuador
+Egypt
+El Salvador
+Equatorial Guinea
+Eritrea
+Estonia
+Eswatini
+Ethiopia
+Falkland Islands
+Faroe Islands
+Fiji
+Finland
+France
+French Guiana
+French Polynesia
+French Southern Territories
+Gabon
+Gambia
+Georgia
+Germany
+Ghana
+Gibraltar
+Greece
+Greenland
+Grenada
+Guadeloupe
+Guam
+Guatemala
+Guernsey
+Guinea
+Guinea-Bissau
+Guyana
+Haiti
+Heard Island and McDonald Islands
+Honduras
+Hong Kong SAR
+Hungary
+Iceland
+India
+Indonesia
+Iraq
+Ireland
+Isle of Man
+Israel
+Italy
+Jamaica
+Jan Mayen
+Japan
+Jersey
+Jordan
+Kazakhstan
+Kenya
+Kiribati
+Korea
+Kosovo
+Kuwait
+Kyrgyzstan
+Laos
+Latvia
+Lebanon
+Lesotho
+Liberia
+Libya
+Liechtenstein
+Lithuania
+Luxembourg
+Macau SAR
+Madagascar
+Malawi
+Malaysia
+Maldives
+Mali
+Malta
+Marshall Islands
+Martinique
+Mauritania
+Mauritius
+Mayotte
+Mexico
+Micronesia
+Moldova
+Monaco
+Mongolia
+Montenegro
+Montserrat
+Morocco
+Mozambique
+Myanmar
+Namibia
+Nauru
+Nepal
+Netherlands
+New Caledonia
+New Zealand
+Nicaragua
+Niger
+Nigeria
+Niue
+Norfolk Island
+North Macedonia
+Northern Mariana Islands
+Norway
+Oman
+Pakistan
+Palau
+Palestinian Authority
+Panama
+Papua New Guinea
+Paraguay
+Peru
+Philippines
+Pitcairn Islands
+Poland
+Portugal
+Puerto Rico
+Qatar
+Réunion
+Romania
+Rwanda
+Saba
+Saint Barthélemy
+Saint Kitts and Nevis
+Saint Lucia
+Saint Martin
+Saint Pierre and Miquelon
+Saint Vincent and the Grenadines
+Samoa
+San Marino
+São Tomé and Príncipe
+Saudi Arabia
+Senegal
+Serbia
+Seychelles
+Sierra Leone
+Singapore
+Sint Eustatius
+Sint Maarten
+Slovakia
+Slovenia
+Solomon Islands
+Somalia
+South Africa
+South Georgia and South Sandwich Islands
+South Sudan
+Spain
+Sri Lanka
+St Helena
+Ascension
+Tristan da Cunha
+Suriname
+Svalbard
+Sweden
+Switzerland
+Taiwan
+Tajikistan
+Tanzania
+Thailand
+Timor-Leste
+Togo
+Tokelau
+Tonga
+Trinidad and Tobago
+Tunisia
+Turkey
+Turkmenistan
+Turks and Caicos Islands
+Tuvalu
+U.S. Outlying Islands
+U.S. Virgin Islands
+Uganda
+Ukraine
+United Arab Emirates
+United Kingdom
+Uruguay
+Uzbekistan
+Vanuatu
+Vatican City
+Venezuela
+Vietnam
+Wallis and Futuna
+Yemen
+Zambia
+Zimbabwe
+I would like to receive the Microsoft Agent Framework Newsletter.
+Privacy Statement.
+Subscribe
+Follow this blog
+Are you sure you wish to delete this
+comment?
+OK
+Cancel
+Sign in
+Theme
+Insert/edit link
+Close
+Enter the destination URL
+URL
+Link Text
+Open link in a new tab
+Or link to existing content
+Search
+No search term specified. Showing recent items.
+Search or use up and down arrow keys to select an item.
+Cancel
+Code Block
+×
+Paste your code snippet
+Ok
+Cancel

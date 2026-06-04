@@ -1,0 +1,13 @@
+{
+  "episode_id": "episode_92d7f89aaed511f1",
+  "source_id": "source_7aed418ee17b8d00",
+  "title": "A3: An Automated Alignment Agent for Safety Finetuning",
+  "url": "https://alignment.anthropic.com/2026/automated-alignment-agent/",
+  "ingested_at": "2026-06-04T15:32:55.193427Z",
+  "published_at": "March 11, 2026",
+  "raw_path": "data/graphs/ai_agents_autonomous_goal_directed_ai_systems/raw/source_7aed418ee17b8d00.html",
+  "cleaned_path": "data/graphs/ai_agents_autonomous_goal_directed_ai_systems/cleaned/source_7aed418ee17b8d00.txt",
+  "content_hash": "b822335c3575ce99",
+  "status": "success",
+  "failure_reason": null
+}

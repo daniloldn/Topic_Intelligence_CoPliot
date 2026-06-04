@@ -9,8 +9,16 @@ src/topic_agent/agents/__init__.py
 src/topic_agent/agents/knowledge_router.py
 src/topic_agent/agents/query_understanding.py
 src/topic_agent/agents/research_planner.py
+src/topic_agent/agents/source_provider.py
+src/topic_agent/ingestion/__init__.py
+src/topic_agent/ingestion/cleaner.py
+src/topic_agent/ingestion/fetcher.py
+src/topic_agent/ingestion/pipeline.py
+src/topic_agent/ingestion/store.py
 src/topic_agent/llm/__init__.py
 src/topic_agent/llm/openai_client.py
+src/topic_agent/runs/discovery_store.py
+src/topic_agent/runs/store_helpers.py
 src/topic_agent/sources/discovery.py
 src/topic_agent/sources/evaluator.py
 src/topic_agent/sources/query_builder.py

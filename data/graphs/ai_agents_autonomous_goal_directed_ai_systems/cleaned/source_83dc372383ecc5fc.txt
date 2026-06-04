@@ -1,0 +1,182 @@
+[2602.18998] Benchmark Test-Time Scaling of General LLM Agents
+Computer Science > Artificial Intelligence
+arXiv:2602.18998
+(cs)
+[Submitted on 22 Feb 2026]
+Title:
+Benchmark Test-Time Scaling of General LLM Agents
+Authors:
+Xiaochuan Li
+,
+Ryan Ming
+,
+Pranav Setlur
+,
+Abhijay Paladugu
+,
+Andy Tang
+,
+Hao Kang
+,
+Shuai Shao
+,
+Rong Jin
+,
+Chenyan Xiong
+View a PDF of the paper titled Benchmark Test-Time Scaling of General LLM Agents, by Xiaochuan Li and 8 other authors
+View PDF
+HTML (experimental)
+Abstract:
+LLM agents are increasingly expected to function as general-purpose systems capable of resolving open-ended user requests. While existing benchmarks focus on domain-aware environments for developing specialized agents, evaluating general-purpose agents requires more realistic settings that challenge them to operate across multiple skills and tools within a unified environment. We introduce General AgentBench, a benchmark that provides such a unified framework for evaluating general LLM agents across search, coding, reasoning, and tool-use domains. Using General AgentBench, we systematically study test-time scaling behaviors under sequential scaling (iterative interaction) and parallel scaling (sampling multiple trajectories). Evaluation of ten leading LLM agents reveals a substantial performance degradation when moving from domain-specific evaluations to this general-agent setting. Moreover, we find that neither scaling methodology yields effective performance improvements in practice, due to two fundamental limitations: context ceiling in sequential scaling and verification gap in parallel scaling. Code is publicly available at
+this https URL
+.
+Subjects:
+Artificial Intelligence (cs.AI)
+; Computation and Language (cs.CL)
+Cite as:
+arXiv:2602.18998
+[cs.AI]
+(or
+arXiv:2602.18998v1
+[cs.AI]
+for this version)
+https://doi.org/10.48550/arXiv.2602.18998
+Focus to learn more
+arXiv-issued DOI via DataCite
+Submission history
+From: Xiaochuan Li [
+view email
+]
+[v1]
+Sun, 22 Feb 2026 01:08:02 UTC (745 KB)
+Full-text links:
+Access Paper:
+View a PDF of the paper titled Benchmark Test-Time Scaling of General LLM Agents, by Xiaochuan Li and 8 other authors
+View PDF
+HTML (experimental)
+TeX Source
+view license
+Current browse context:
+cs.AI
+< prev
+|
+next >
+new
+|
+recent
+|
+2026-02
+Change to browse by:
+cs
+cs.CL
+References & Citations
+NASA ADS
+Google Scholar
+Semantic Scholar
+export BibTeX citation
+Loading...
+BibTeX formatted citation
+×
+loading...
+Data provided by:
+Bookmark
+Bibliographic Tools
+Bibliographic and Citation Tools
+Bibliographic Explorer Toggle
+Bibliographic Explorer
+(
+What is the Explorer?
+)
+Connected Papers Toggle
+Connected Papers
+(
+What is Connected Papers?
+)
+Litmaps Toggle
+Litmaps
+(
+What is Litmaps?
+)
+scite.ai Toggle
+scite Smart Citations
+(
+What are Smart Citations?
+)
+Code, Data, Media
+Code, Data and Media Associated with this Article
+alphaXiv Toggle
+alphaXiv
+(
+What is alphaXiv?
+)
+Links to Code Toggle
+CatalyzeX Code Finder for Papers
+(
+What is CatalyzeX?
+)
+DagsHub Toggle
+DagsHub
+(
+What is DagsHub?
+)
+GotitPub Toggle
+Gotit.pub
+(
+What is GotitPub?
+)
+Huggingface Toggle
+Hugging Face
+(
+What is Huggingface?
+)
+ScienceCast Toggle
+ScienceCast
+(
+What is ScienceCast?
+)
+Demos
+Demos
+Replicate Toggle
+Replicate
+(
+What is Replicate?
+)
+Spaces Toggle
+Hugging Face Spaces
+(
+What is Spaces?
+)
+Spaces Toggle
+TXYZ.AI
+(
+What is TXYZ.AI?
+)
+Related Papers
+Recommenders and Search Tools
+Link to Influence Flower
+Influence Flower
+(
+What are Influence Flowers?
+)
+Core recommender toggle
+CORE Recommender
+(
+What is CORE?
+)
+Author
+Venue
+Institution
+Topic
+About arXivLabs
+arXivLabs: experimental projects with community collaborators
+arXivLabs is a framework that allows collaborators to develop and share new arXiv features directly on our website.
+Both individuals and organizations that work with arXivLabs have embraced and accepted our values of openness, community, excellence, and user data privacy. arXiv is committed to these values and only works with partners that adhere to them.
+Have an idea for a project that will add value for arXiv's community?
+Learn more about arXivLabs
+.
+Which authors of this paper are endorsers?
+|
+Disable MathJax
+(
+What is MathJax?
+)

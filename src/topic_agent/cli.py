@@ -1,5 +1,6 @@
 import typer
 import time
+from pathlib import Path
 from rich.console import Console
 from rich.prompt import Confirm
 from topic_agent.workflow.planning_workflow import run_planning_workflow
@@ -10,6 +11,9 @@ from topic_agent.sources.evaluator import evaluate_content_items
 from topic_agent.sources.discovery import discover_content_items
 from topic_agent.agents.source_provider import find_source
 from topic_agent.runs.store_helpers import build_discovery_run, save_discovery_run
+from topic_agent.ingestion.pipeline import ingest_discovery_run
+from topic_agent.ingestion.loader import load_discovery_run
+
 
 load_dotenv()
 
@@ -105,3 +109,33 @@ def discover(query: str, full: bool = False):
 
 
 
+
+@app.command()
+def ingest(
+    discovery_path: Path,
+    max_items: int = 5,
+):
+    """Fetch, clean and create episodes from a saved discovery run."""
+
+    discovery_run = load_discovery_run(discovery_path)
+
+    console.print(f"[bold]Ingesting discovery run:[/bold] {discovery_run.run_id}")
+    console.print(f"[dim]Topic:[/dim] {discovery_run.topic_slug}")
+
+    ingestion_run = ingest_discovery_run(
+        discovery_run=discovery_run,
+        max_items=max_items,
+    )
+
+    console.print()
+    console.print("[bold green]Ingestion complete[/bold green]")
+    console.print(f"Attempted: {ingestion_run.sources_attempted}")
+    console.print(f"Succeeded: {ingestion_run.sources_succeeded}")
+
+    for episode in ingestion_run.episodes:
+        if episode.status == "success":
+            console.print(f"[green]✓[/green] {episode.title}")
+            console.print(f"  Cleaned: {episode.cleaned_path}")
+        else:
+            console.print(f"[red]✗[/red] {episode.title}")
+            console.print(f"  Reason: {episode.failure_reason}")

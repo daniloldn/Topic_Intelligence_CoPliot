@@ -1,0 +1,13 @@
+{
+  "episode_id": "episode_705d38e51f9d5a99",
+  "source_id": "source_83dc372383ecc5fc",
+  "title": "Benchmark Test‑Time Scaling of General LLM Agents (arXiv)",
+  "url": "https://arxiv.org/abs/2602.18998",
+  "ingested_at": "2026-06-04T15:32:55.268951Z",
+  "published_at": "Submitted February 22, 2026",
+  "raw_path": "data/graphs/ai_agents_autonomous_goal_directed_ai_systems/raw/source_83dc372383ecc5fc.html",
+  "cleaned_path": "data/graphs/ai_agents_autonomous_goal_directed_ai_systems/cleaned/source_83dc372383ecc5fc.txt",
+  "content_hash": "dfb0e2a14cd3a0bc",
+  "status": "success",
+  "failure_reason": null
+}

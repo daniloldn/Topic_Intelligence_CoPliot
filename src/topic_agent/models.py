@@ -2,7 +2,6 @@ from pydantic import BaseModel, Field, HttpUrl
 from typing import Literal
 from datetime import datetime, timezone
 
-
 class QueryUnderstanding(BaseModel):
     topic: str = Field(description="The main topic the user is asking about.")
     request: Literal[
@@ -129,3 +128,41 @@ class DiscoveryRun(BaseModel):
     created_at: datetime
     planning_result: PlanningResult
     discovery_result: DiscoveryResult
+
+
+class SourceRecord(BaseModel):
+    source_id: str
+    title: str
+    url: str
+    source_name: str | None = None
+    domain: str | None = None
+    source_type: str | None = None
+    source_role: str | None = None
+    published_at: str | None = None
+    discovered_run_id: str
+    discovered_score: int | None = None
+    recommendation: Literal["ingest", "maybe", "skip"]
+
+
+class Episode(BaseModel):
+    episode_id: str
+    source_id: str
+    title: str
+    url: str
+    ingested_at: datetime
+    published_at: str | None = None
+    raw_path: str
+    cleaned_path: str
+    content_hash: str
+    status: Literal["success", "failed"]
+    failure_reason: str | None = None
+
+
+class IngestionRun(BaseModel):
+    run_id: str
+    discovery_run_id: str
+    topic_slug: str
+    created_at: datetime
+    sources_attempted: int
+    sources_succeeded: int
+    episodes: list[Episode]

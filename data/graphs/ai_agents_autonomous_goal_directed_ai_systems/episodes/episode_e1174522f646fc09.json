@@ -1,0 +1,13 @@
+{
+  "episode_id": "episode_e1174522f646fc09",
+  "source_id": "source_3af808bfbc2561cf",
+  "title": "Microsoft Agent Framework Version 1.0",
+  "url": "https://devblogs.microsoft.com/agent-framework/microsoft-agent-framework-version-1-0/",
+  "ingested_at": "2026-06-04T15:32:55.043982Z",
+  "published_at": "April 3, 2026",
+  "raw_path": "data/graphs/ai_agents_autonomous_goal_directed_ai_systems/raw/source_3af808bfbc2561cf.html",
+  "cleaned_path": "data/graphs/ai_agents_autonomous_goal_directed_ai_systems/cleaned/source_3af808bfbc2561cf.txt",
+  "content_hash": "7108356cc09a6743",
+  "status": "success",
+  "failure_reason": null
+}
