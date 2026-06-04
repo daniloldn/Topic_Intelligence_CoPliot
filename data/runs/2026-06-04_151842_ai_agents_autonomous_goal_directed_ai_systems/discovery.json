@@ -1,0 +1,320 @@
+{
+  "run_id": "2026-06-04_151842_ai_agents_autonomous_goal_directed_ai_systems",
+  "query": "What are the latest developments in AI agents?",
+  "topic_slug": "ai_agents_autonomous_goal_directed_ai_systems",
+  "created_at": "2026-06-04T15:18:42.499887Z",
+  "planning_result": {
+    "original_query": "What are the latest developments in AI agents?",
+    "query_understanding": {
+      "topic": "AI agents (autonomous / goal-directed AI systems)",
+      "request": "latest_developments",
+      "time_frame": "last 6 months",
+      "knowledge_freshness_required": "high",
+      "depth_required": "standard",
+      "user_goal": "Receive a concise, up-to-date summary of the most recent research breakthroughs, product launches, capability improvements, safety/policy developments, and ecosystem changes related to AI agents.",
+      "clarification_needed": false,
+      "clarification_question": null
+    },
+    "router_decision": {
+      "route": "build_new_graph",
+      "reason": "No graphs exists yet so we need to build a new one"
+    },
+    "research_plan": {
+      "source_types_needed": [
+        "official company/lab announcements and blog posts (OpenAI, Anthropic, DeepMind, Google Research, Microsoft, Meta, Mistral, Cohere, etc.)",
+        "academic papers and preprints (arXiv, conference proceedings: NeurIPS, ICML, ICLR, AAAI, AISTATS)",
+        "model cards, technical reports, and release notes for agentic models and tool-using systems",
+        "developer documentation and SDK/changelog entries (LangChain, AutoGen, Microsoft Copilot SDK, OpenAI API updates)",
+        "open-source code and GitHub repositories (LangChain, AutoGPT, BabyAGI, AutoGen, agent-focused repos /benchmarks)",
+        "benchmarks, evaluation reports and leaderboards (Hugging Face evals, community benchmarks for agents)",
+        "technical blogs and engineering posts explaining new methods, architectures, or tool integrations",
+        "independent expert commentary and analysis (AI safety groups, independent researchers, notable blogs/newsletters)",
+        "mainstream technology news coverage (TechCrunch, The Verge, Wired) for product launches and ecosystem changes",
+        "policy/regulatory sources and official government statements (EU, US federal/regulatory agencies, NIST, OECD, national AI task forces)",
+        "safety organisation outputs (OpenAI safety updates, Anthropic safety notes, Partnership on AI, DeepMind safety research)",
+        "video/transcripts of talks, panels, and conference presentations (YouTube, conference pages) for announcements and demos",
+        "venture funding and M&A reports for ecosystem changes (Crunchbase, Sifted, TechCrunch funding pieces)",
+        "community discussion & signal sources (Hacker News, Reddit r/MachineLearning, X/Twitter threads by known researchers) for early dissemination and replication attempts"
+      ],
+      "source_priority": [
+        {
+          "source_type": "official company/lab announcements and blog posts (OpenAI, Anthropic, DeepMind, Google Research, Microsoft, Meta, Mistral, Cohere, etc.)",
+          "priority": 5,
+          "reason": "Primary source for product launches, APIs, model capabilities, and official safety/policy positions — essential for factual claims."
+        },
+        {
+          "source_type": "academic papers and preprints (arXiv, conference proceedings)",
+          "priority": 5,
+          "reason": "Primary evidence for research breakthroughs, new methods, and formal evaluation results."
+        },
+        {
+          "source_type": "model cards, technical reports, and release notes",
+          "priority": 5,
+          "reason": "Contain authoritative implementation details, limitations, and documented evals required for grounded claims."
+        },
+        {
+          "source_type": "benchmarks, evaluation reports and leaderboards",
+          "priority": 4,
+          "reason": "Objective performance measures for capability claims; critical to assess real progress vs. marketing."
+        },
+        {
+          "source_type": "developer documentation and SDK/changelog entries",
+          "priority": 4,
+          "reason": "Shows concrete feature availability, integration changes and backward-incompatible updates useful to practitioners."
+        },
+        {
+          "source_type": "open-source code and GitHub repositories",
+          "priority": 4,
+          "reason": "Implementation evidence, commit histories and issue discussions reveal reproducibility and community uptake."
+        },
+        {
+          "source_type": "safety organisation outputs and independent expert commentary",
+          "priority": 4,
+          "reason": "Contextualizes significance, risks and best-practices; important for policy/safety developments."
+        },
+        {
+          "source_type": "mainstream technology news coverage and funding reports",
+          "priority": 3,
+          "reason": "Useful for ecosystem-level changes (funding, partnerships, market impact) and quick syntheses, but should be corroborated with primary sources."
+        },
+        {
+          "source_type": "video/transcripts of talks and conference presentations",
+          "priority": 3,
+          "reason": "Useful for demos and verbal announcements not yet documented elsewhere; must be verified against written sources."
+        },
+        {
+          "source_type": "community discussion & signal sources (Hacker News, Reddit, X/Twitter)",
+          "priority": 2,
+          "reason": "Early signals, reproducibility notes and critiques — low priority for claims without primary-source confirmation."
+        }
+      ],
+      "search_queries": [
+        "AI agents autonomous agent release 2026 site:openai.com OR site:anthropic.com OR site:deepmind.com \"release\" OR \"blog\"",
+        "autonomous agents \"research paper\" 2026 arXiv OR NeurIPS OR ICLR \"agent\" \"tool use\" \"planning\"",
+        "agentic AI \"preprint\" \"arXiv\" \"autonomous agent\" \"tool use\" \"memory\"",
+        "LangChain release notes \"agent\" \"tool use\" \"memory\" changelog \"last 6 months\"",
+        "AutoGPT GitHub release \"agent\" \"autonomous\" \"last 6 months\"",
+        "Agent benchmark \"evaluation\" \"benchmark\" \"autonomous agent\" \"agent evaluation\" \"2026\"",
+        "agentic evaluation \"AgentBench\" \"benchmark\" \"autonomous\"",
+        "multi-agent systems \"emergent\" \"collaboration\" \"paper\" 2026 \"arXiv\"",
+        "agent reflexion \"paper\" \"2026\" OR \"blog\"",
+        "tool-using language models \"API\" \"plugins\" \"integration\" \"release\"",
+        "model card \"agent\" \"capability\" \"tool use\" site:huggingface.co \"model card\"",
+        "OpenAI plugin API agent announcement \"release\" OR \"plugin\" \"agent\"",
+        "Microsoft Copilot \"autonomous\" \"agent\" SDK release notes",
+        "DeepMind agent \"paper\" OR \"blog\" \"autonomous agent\" 2026",
+        "Anthropic agentic system blog \"Claude\" agent \"tool use\"",
+        "safety \"autonomous agents\" policy guidance \"NIST\" OR \"EU\" OR \"US\" \"AI Act\"",
+        "European Commission AI Act implications for autonomous agents \"guidance\"",
+        "Partnership on AI autonomous systems guidance \"agent\" \"safety\"",
+        "AI agent sandboxing / containment techniques \"paper\" OR \"blog\" OR \"release\"",
+        "memory systems for agents \"episodic memory\" \"retrieval-augmented\" \"paper\" 2026",
+        "planning and hierarchical control in LLM agents \"paper\" 2026 \"arXiv\"",
+        "benchmarks comparing agent frameworks \"LangChain vs AutoGen\" \"evaluation\"",
+        "open-source agent frameworks \"AutoGen\" \"voyager\" \"last 6 months\" GitHub",
+        "vulnerability OR jailbreak OR safety incident \"agent\" \"autonomous\" \"report\"",
+        "funding \"autonomous agents\" startup funding \"seed\" OR \"series A\" last 6 months",
+        "regulatory announcement \"autonomous agent\" \"executive order\" OR \"guidance\"",
+        "conference talks \"autonomous agents\" \"demo\" NeurIPS ICML ICLR 2026",
+        "community replication \"autonomous agent\" \"reproduce\" \"GitHub\" \"issues\" \"pull request\"",
+        "evaluation methodology \"autonomous agents\" human-in-the-loop \"benchmark\""
+      ],
+      "evidence_requirements": [
+        "Primary sources (official blog posts, release notes, model cards, technical reports) to substantiate any product launch or capability claim",
+        "Peer-reviewed papers or arXiv preprints for research breakthroughs, with attention to methods, limitations, and experiments",
+        "Benchmarks and evaluation datasets with methodology and metrics to support performance comparisons",
+        "GitHub commits, changelogs and issue threads to verify release timelines, reproducibility and breaking changes",
+        "Independent replications, third-party evaluations or meta-analyses to confirm or qualify claimed capabilities",
+        "Policy/regulatory documents (official government guidance, draft legislation, agency advisories) for legal and governance claims",
+        "Safety org whitepapers, blog posts and incident reports for risks, mitigations and safety recommendations",
+        "Video transcripts or conference slides only as supporting evidence — must be corroborated by written documents when used for factual claims",
+        "News coverage and newsletters only as secondary sources; require cross-check with primary sources for factual claims"
+      ],
+      "expected_graph_nodes": [
+        "Topic: AI agents (autonomous / goal-directed AI systems)",
+        "Subtopic: tool use / plugins / API integration",
+        "Subtopic: planning / hierarchical control / reflection",
+        "Subtopic: memory and state (episodic memory, retrieval augmentation)",
+        "Subtopic: multi-agent coordination / emergent behaviors",
+        "Model / System: named agentic models or releases (company model names, OSS frameworks)",
+        "Framework / Library: LangChain, AutoGen, other agent frameworks, SDKs",
+        "Paper / Preprint",
+        "Benchmark / Evaluation",
+        "Capability (e.g., long-horizon planning, tool composition, web-browsing, code execution)",
+        "Safety Issue / Incident / Vulnerability",
+        "Policy / Regulation / Guidance",
+        "Organization (OpenAI, Anthropic, DeepMind, Microsoft, startups)",
+        "Event (conference presentations, launches)",
+        "Person (authors, maintainers, key speakers)",
+        "Release / Version / Changelog entry",
+        "Funding / Investment Event",
+        "Community Resource (GitHub repo, discussion thread, replication notebook)"
+      ],
+      "expected_graph_edges": [
+        "RELEASED_BY (Release -> Organization)",
+        "AUTHORED_BY (Paper -> Person or Organization)",
+        "EVIDENCED_BY (Claim -> Paper/Report/Model Card)",
+        "BUILDS_ON (Model/System -> Prior Paper or Framework)",
+        "UPDATES (Release/Version -> Prior Release)",
+        "COMPARES_WITH (Benchmark -> Model/System)",
+        "MEASURED_BY (Capability -> Benchmark/Metric)",
+        "AFFECTS (Policy/Regulation -> Organization or Technology adoption)",
+        "ADDRESSES (Paper/Report -> Safety Issue)",
+        "HAS_FEATURE (Model/System -> Capability)",
+        "IMPLEMENTED_IN (Feature/Approach -> Framework/Library)",
+        "CONTRADICTS (Claim -> Independent Evaluation)",
+        "REPORTED_AT (Event -> Release/Paper announcement)",
+        "FUNDED_BY (Startup -> Funding Event)"
+      ],
+      "ranking_signals": [
+        "recency (published or released within the last 6 months)",
+        "primary-source status (official release notes, model cards, peer-reviewed papers prioritized)",
+        "source authority and reputation (well-established labs, top-conference papers, government agencies)",
+        "cross-source confirmation (same claim appears in multiple independent authoritative sources)",
+        "technical depth (clear methods, metrics, reproducible code or evaluation details)",
+        "practical impact (availability via API/SDK, production deployment, wide community adoption)",
+        "novelty (new capability or architecture vs. incremental improvement)",
+        "independent replication or third-party benchmark validation",
+        "policy/regulatory weight (official government documents or widely-cited guidance)",
+        "transparency (presence of model cards, limitations, known failure modes)"
+      ],
+      "risks_and_biases": [
+        "marketing and hype: vendor blog posts and press coverage may overstate capabilities — require technical substantiation",
+        "preprint vs. peer-reviewed: arXiv papers may be preliminary and not yet replicated",
+        "duplicate or secondary reporting: many news articles will re-report the same primary source — avoid overcounting",
+        "selection bias toward prominent organizations: smaller but significant OSS contributions or startups may be missed without targeted searches",
+        "benchmarks can be cherry-picked or dataset-contaminated — check methodology and data leakage risks",
+        "community signals (Twitter, Reddit) can amplify unverified claims and replicability anecdotes",
+        "policy lag: statements by companies may precede formal regulatory action — distinguish guidance from binding rules",
+        "security-sensitive omissions: incidents or vulnerabilities may be underreported",
+        "confirmation bias toward emergent-capability narratives — require concrete, measurable evidence",
+        "temporal coverage risk: ensure the search window is strictly limited to the last 6 months to satisfy freshness requirement"
+      ]
+    }
+  },
+  "discovery_result": {
+    "query": "What are the latest developments in AI agents (last 6 months)",
+    "items": [
+      {
+        "item": {
+          "title": "Introducing GPT‑5.5",
+          "url": "https://openai.com/index/introducing-gpt-5-5/",
+          "source_name": "OpenAI (blog / product release)",
+          "domain": "openai.com",
+          "source_type": "official company/lab announcement",
+          "published_at": "April 23, 2026",
+          "snippet": "OpenAI announces GPT‑5.5 (and GPT‑5.5 Pro): a step-change model focused on agentic capabilities (longer persistence, improved tool use, coding and computer-use skills). Includes evaluation results across multiple agent benchmarks (Terminal‑Bench, OSWorld, SWE‑Bench variants), rollout/availability notes, and updated system card / safeguards.",
+          "discovery_query": "OpenAI agents GPT-5.5 release April 2026 \"introducing gpt-5.5\"",
+          "discovery_method": "trusted_source_search"
+        },
+        "relevance_score": 0,
+        "authority_score": 0,
+        "recency_score": 0,
+        "evidence_value_score": 0,
+        "technical_depth_score": 0,
+        "bias_risk_score": 0,
+        "overall_score": 0,
+        "recommendation": "ingest",
+        "reason": "Primary product release and primary evidence of recent model capability and benchmark claims (agentic capabilities + safety notes).",
+        "source_role": "primary_announcement",
+        "date_relevance": "current"
+      },
+      {
+        "item": {
+          "title": "The next evolution of the Agents SDK",
+          "url": "https://openai.com/index/the-next-evolution-of-the-agents-sdk",
+          "source_name": "OpenAI (developers / product blog)",
+          "domain": "openai.com",
+          "source_type": "official company/lab announcement (SDK / release notes)",
+          "published_at": "April 15, 2026",
+          "snippet": "OpenAI describes updates to its Agents SDK: a model-native harness for the agent loop, native sandbox execution, separation of harness from compute, security-focused sandboxing, Python first with TypeScript planned — important implementation and developer-facing changes for building and deploying agents.",
+          "discovery_query": "The next evolution of the Agents SDK OpenAI April 2026 \"Agents SDK\"",
+          "discovery_method": "trusted_source_search"
+        },
+        "relevance_score": 0,
+        "authority_score": 0,
+        "recency_score": 0,
+        "evidence_value_score": 0,
+        "technical_depth_score": 0,
+        "bias_risk_score": 0,
+        "overall_score": 0,
+        "recommendation": "ingest",
+        "reason": "Primary SDK changelog / product documentation describing agent harness, sandboxing, and developer features (matches evidence requirements for release notes and SDK docs).",
+        "source_role": "implementation_release",
+        "date_relevance": "current"
+      },
+      {
+        "item": {
+          "title": "Microsoft Agent Framework Version 1.0",
+          "url": "https://devblogs.microsoft.com/agent-framework/microsoft-agent-framework-version-1-0/",
+          "source_name": "Microsoft Developer Blogs (Agent Framework)",
+          "domain": "devblogs.microsoft.com",
+          "source_type": "official company/lab announcement (framework release)",
+          "published_at": "April 3, 2026",
+          "snippet": "Microsoft announces Microsoft Agent Framework v1.0 (GA) — unifying Semantic Kernel and AutoGen into a single open-source SDK (Python/.NET), multi-provider model support, A2A and MCP interoperability, migration guidance and code samples for building production multi-agent systems.",
+          "discovery_query": "Microsoft Agent Framework 1.0 April 2026 'AutoGen' 'Semantic Kernel' 'release'",
+          "discovery_method": "trusted_source_search"
+        },
+        "relevance_score": 0,
+        "authority_score": 0,
+        "recency_score": 0,
+        "evidence_value_score": 0,
+        "technical_depth_score": 0,
+        "bias_risk_score": 0,
+        "overall_score": 0,
+        "recommendation": "ingest",
+        "reason": "Primary developer-facing announcement from Microsoft that signals important ecosystem consolidation (open-source framework, migration path, multi-provider support).",
+        "source_role": "implementation_release",
+        "date_relevance": "current"
+      },
+      {
+        "item": {
+          "title": "A3: An Automated Alignment Agent for Safety Finetuning",
+          "url": "https://alignment.anthropic.com/2026/automated-alignment-agent/",
+          "source_name": "Anthropic Alignment / Engineering blog",
+          "domain": "alignment.anthropic.com",
+          "source_type": "official company/lab research blog / open-source release",
+          "published_at": "March 11, 2026",
+          "snippet": "Anthropic presents A3, an agentic automated-alignment pipeline that generates targeted adversarial examples, splits training/OOD data, and iteratively finetunes models (LoRA, adaptive weighting) to reduce safety-failure rates. The post includes experimental results and links to an open-source code release.",
+          "discovery_query": "Anthropic Automated Alignment Agent A3 March 2026 'A3' 'automated alignment agent'",
+          "discovery_method": "trusted_source_search"
+        },
+        "relevance_score": 0,
+        "authority_score": 0,
+        "recency_score": 0,
+        "evidence_value_score": 0,
+        "technical_depth_score": 0,
+        "bias_risk_score": 0,
+        "overall_score": 0,
+        "recommendation": "ingest",
+        "reason": "Primary research/safety output with code release that directly addresses safety methods for agentic systems (meets safety organisation / independent-analysis requirements).",
+        "source_role": "academic_evidence",
+        "date_relevance": "current"
+      },
+      {
+        "item": {
+          "title": "Benchmark Test‑Time Scaling of General LLM Agents (arXiv)",
+          "url": "https://arxiv.org/abs/2602.18998",
+          "source_name": "arXiv (preprint)",
+          "domain": "arxiv.org",
+          "source_type": "academic paper / benchmark study",
+          "published_at": "Submitted February 22, 2026",
+          "snippet": "ArXiv preprint introducing General AgentBench and studying test-time scaling behaviors for general LLM agents across search, coding, reasoning and tool-use domains. Reports that agents' performance degrades when evaluated in unified general-agent settings and provides code and dataset links — relevant benchmark/evaluation evidence.",
+          "discovery_query": "Benchmark Test-Time Scaling of General LLM Agents arXiv Feb 2026 'General AgentBench'",
+          "discovery_method": "broad_web_search"
+        },
+        "relevance_score": 0,
+        "authority_score": 0,
+        "recency_score": 0,
+        "evidence_value_score": 0,
+        "technical_depth_score": 0,
+        "bias_risk_score": 0,
+        "overall_score": 0,
+        "recommendation": "ingest",
+        "reason": "Recent academic benchmark paper providing concrete evaluation methodology, results, and public code — important to assess claimed agent progress and limitations.",
+        "source_role": "benchmark",
+        "date_relevance": "current"
+      }
+    ]
+  }
+}

@@ -1,6 +1,7 @@
 import typer
 import time
 from rich.console import Console
+from rich.prompt import Confirm
 from topic_agent.workflow.planning_workflow import run_planning_workflow
 from dotenv import load_dotenv
 from topic_agent.helpers import print_plan_summary, print_discovery_summary
@@ -8,6 +9,7 @@ from topic_agent.sources.search_provider import MockSearchProvider
 from topic_agent.sources.evaluator import evaluate_content_items
 from topic_agent.sources.discovery import discover_content_items
 from topic_agent.agents.source_provider import find_source
+from topic_agent.runs.store_helpers import build_discovery_run, save_discovery_run
 
 load_dotenv()
 
@@ -81,7 +83,25 @@ def discover(query: str, full: bool = False):
         console.print([item.model_dump() for item in evaluated])
     else:
         print_discovery_summary(evaluated, console)
-  
+
+    should_save = Confirm.ask(
+        "\n[bold]Save this discovery run?[/bold]",
+        default=False,
+    )
+
+    if should_save:
+        discovery_run = build_discovery_run(
+            query=query,
+            planning_result=planning_result,
+            discovery_result=source_result,
+        )
+
+        saved_path = save_discovery_run(discovery_run)
+
+        console.print(f"\n[green]Saved discovery run:[/green] {saved_path}")
+        console.print(f"[dim]Next:[/dim] uv run fde ingest {saved_path}")
+    else:
+        console.print("[dim]Discovery run not saved.[/dim]")
 
 
 

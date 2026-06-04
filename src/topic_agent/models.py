@@ -1,5 +1,6 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, HttpUrl
 from typing import Literal
+from datetime import datetime, timezone
 
 
 class QueryUnderstanding(BaseModel):
@@ -8,7 +9,7 @@ class QueryUnderstanding(BaseModel):
         "explain_topic", 
         "latest_developments",
         "compare", 
-        "deep_reseach", 
+        "deep_research", 
         "unknown"
     ]
     time_frame: str |None =Field(
@@ -28,10 +29,10 @@ class QueryUnderstanding(BaseModel):
 
 class RouterDecision(BaseModel):
     route: Literal[
-        "answer_from_exisitng_graph", 
+        "answer_from_existing_graph", 
         "update_exisitng_graph", 
         "build_new_graph", 
-        "ask_clarifying_quesitons"
+        "ask_clarifying_questions"
     ]
     reason: str
 
@@ -120,3 +121,11 @@ class DiscoveryResult(BaseModel):
     items: list[EvaluatedContentItem] = Field(
         description="Exactly 5 evaluated candidate sources, ranked from best to worst."
     )
+
+class DiscoveryRun(BaseModel):
+    run_id: str
+    query: str
+    topic_slug: str
+    created_at: datetime
+    planning_result: PlanningResult
+    discovery_result: DiscoveryResult
